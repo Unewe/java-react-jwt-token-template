@@ -14,7 +14,7 @@ import java.security.Principal;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @GetMapping("/me")
+    @GetMapping("/current-user")
     public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
         if(userPrincipal == null) return ResponseEntity.notFound().build();
         else return ResponseEntity.ok(userPrincipal);
