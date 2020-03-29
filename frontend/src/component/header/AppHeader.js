@@ -43,7 +43,7 @@ class AppHeader extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-3 text-center">
-                            <Link to="/">Quest-engine</Link>
+                            <Link to="/">Circle</Link>
                         </div>
                         <div className="col-7 d-flex">
                             {menuItems}

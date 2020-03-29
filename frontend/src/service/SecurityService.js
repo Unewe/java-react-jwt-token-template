@@ -25,7 +25,7 @@ const request = (options) => {
 
 export function login(loginRequest) {
     return request({
-        url: API_BASE_URL + "/api/auth/signin",
+        url: API_BASE_URL + "/api/auth/sign-in",
         method: 'POST',
         body: JSON.stringify(loginRequest)
     });
@@ -33,7 +33,7 @@ export function login(loginRequest) {
 
 export function signup(signupRequest) {
     return request({
-        url: API_BASE_URL + "/api/auth/signup",
+        url: API_BASE_URL + "/api/auth/sign-up",
         method: 'POST',
         body: JSON.stringify(signupRequest)
     });
@@ -60,7 +60,7 @@ export function getCurrentUser() {
     }
 
     return request({
-        url: API_BASE_URL + "/api/user/me",
+        url: API_BASE_URL + "/api/user/current",
         method: 'GET'
     });
 }

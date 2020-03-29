@@ -5,14 +5,13 @@ import {
   withRouter,
   Switch
 } from 'react-router-dom';
-import { getCurrentUser } from '../src/service/SecurityService';
-import { ACCESS_TOKEN } from '../src/constant';
-import AppHeader from '../src/component/header/AppHeader'
+import { getCurrentUser } from './service/SecurityService';
+import { ACCESS_TOKEN } from './constant';
+import AppHeader from './component/header/AppHeader'
 import Login from "./component/security/login/Login";
 import Signup from "./component/security/signup/Signup";
 import  'bootstrap-4-grid';
 import Home from "./component/home/Home";
-import NewGame from "./component/game/new/NewGame";
 import PrivateRoute from "./service/PrivateRoute";
 
 class App extends Component {
@@ -73,12 +72,12 @@ class App extends Component {
       content = <div><h1>Loading</h1></div>
     } else {
       content =
-          <div className="container">
+          <div className="container-fluid">
             <Switch>
               <Route exact path="/" render={(props) => <Home />} />
               <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />} />
               <Route path="/signup" component={Signup} />
-              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/new-game" component={NewGame}/>
+              {/*<PrivateRoute authenticated={this.state.isAuthenticated}  path="/new-game" component={NewGame}/>*/}
             </Switch>
           </div>
     }

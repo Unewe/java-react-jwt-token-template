@@ -1,12 +1,32 @@
 .app-home {
-    color: dimgray;
+
+}
+.circle-item, .circle-item-header {
+    margin: 0 0 1px 0;
+    background-color: white;
+    padding: 10px 10px;
+    position: relative;
+    transition: all .1s;
 }
 
-.games-created {
-    font-size: 24px;
-    font-weight: bold;
+.circle-item:hover:before {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -0.5%;
+    width: 101%;
+    height: 110%;
+    z-index: -1;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    -webkit-transition: all .1s;
+    -moz-transition: all .1s;
+    transition: all .1s;
+}
+.circle-item:hover {
+    z-index: 2;
 }
 
-.games-created span {
-    color: green;
+.circle-name {
+    margin-right: 100px;
 }
