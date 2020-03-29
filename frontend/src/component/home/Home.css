@@ -43,3 +43,8 @@
 .circle-name {
     margin-right: 100px;
 }
+
+.map-container {
+    height: 500px;
+    width: 100%;
+}

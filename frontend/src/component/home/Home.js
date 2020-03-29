@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './Home.css';
+import {YMaps, Map, Placemark, Clusterer, SearchControl} from 'react-yandex-maps';
+
+const mapState = { center: [55.76, 37.64], zoom: 10 };
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
     }
@@ -14,16 +18,22 @@ class Home extends Component {
                 <div className="col-lg-3 col-md-5">
                     <div className="h-padding">
                         <h1>Left column</h1>
-                        {listItem.map((item, index) => (
-                            <div key={index} className={"circle-item d-flex"}>
-                                <div className={"circle-name"}>
-                                    <p>{item.name}</p>
-                                </div>
-                                <div className="circle-description">
-                                    <p>{item.shortDescription}</p>
-                                </div>
-                            </div>
-                        ))}
+                        <div className="map-container">
+                            <YMaps>
+                                <Map width={'100%'} height={'100%'} state={mapState}>
+                                    <Clusterer
+                                        options={{
+                                            preset: "islands#invertedVioletClusterIcons",
+                                            groupByCoordinates: false,
+                                            clusterDisableClickZoom: true,
+                                            clusterHideIconOnBalloonOpen: false,
+                                            geoObjectHideIconOnBalloonOpen: false
+                                        }}>
+                                    </Clusterer>
+                                    <SearchControl options={{float: 'right'}}/>
+                                </Map>
+                            </YMaps>
+                        </div>
                     </div>
                 </div>
                 {/*Правая часть*/}
