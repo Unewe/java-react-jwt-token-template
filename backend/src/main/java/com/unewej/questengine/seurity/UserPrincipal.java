@@ -19,6 +19,7 @@ public class UserPrincipal implements UserDetails {
     private final String email;
     @JsonIgnore
     private final String password;
+    @JsonIgnore
     private final Collection<? extends GrantedAuthority> authorities;
 
     public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -102,7 +103,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 }

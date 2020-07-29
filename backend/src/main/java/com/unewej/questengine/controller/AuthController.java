@@ -1,7 +1,7 @@
 package com.unewej.questengine.controller;
 
 import com.unewej.questengine.model.Role;
-import com.unewej.questengine.model.RoleName;
+import com.unewej.questengine.model.enumeration.RoleName;
 import com.unewej.questengine.model.User;
 import com.unewej.questengine.payload.JwtAuthenticationResponse;
 import com.unewej.questengine.payload.LoginRequest;
@@ -10,7 +10,6 @@ import com.unewej.questengine.repository.RoleRepository;
 import com.unewej.questengine.repository.UserRepository;
 import com.unewej.questengine.seurity.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,10 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Collections;
 
 @RestController
@@ -51,6 +48,12 @@ public class AuthController {
         this.tokenProvider = tokenProvider;
     }
 
+    /**
+     * Авторизация пользователя.
+     *
+     * @param loginRequest payload / данные для авторизации.
+     * @return jwt или exception. (TODO)
+     */
     @PostMapping("/sign-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -66,25 +69,34 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
+    /**
+     * Регистрация пользователя.
+     *
+     * @param signUpRequest payload / данные для регистрации пользователя.
+     *
+     * @return сообщение или exception. (TODO)
+     */
     @PostMapping("/sign-up")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body("Username is already taken!");
+            return ResponseEntity.badRequest().body("Login занят!");
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body("Email Address already in use!");
+            return ResponseEntity.badRequest().body("Email занят!");
         }
 
-        // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new NullPointerException("User Role not set."));
-        user.setRoles(Collections.singleton(userRole));
-        User savedUser = userRepository.save(user);
+                .orElseThrow(() -> new NullPointerException("Этого не должно было произойти."));
+        User user = User.builder()
+                .name(signUpRequest.getName())
+                .username(signUpRequest.getUsername())
+                .email(signUpRequest.getEmail())
+                .password(passwordEncoder.encode(signUpRequest.getPassword()))
+                .roles(Collections.singleton(userRole))
+                .build();
+        userRepository.save(user);
 
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok("Регистрация успешно завершена");
     }
 }

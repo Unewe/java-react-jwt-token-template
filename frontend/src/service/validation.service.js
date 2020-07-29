@@ -1,7 +1,6 @@
 
 export let validateLength = (minLength, maxLength) => {
     return (value) => {
-        console.log(value, minLength, maxLength)
         if(value.length < minLength) {
             return {
                 status: 'error',
@@ -17,7 +16,7 @@ export let validateLength = (minLength, maxLength) => {
                 status: 'success',
                 message: null,
                 conclusion: 'success'
-            };
+            }
         }
     }
 }

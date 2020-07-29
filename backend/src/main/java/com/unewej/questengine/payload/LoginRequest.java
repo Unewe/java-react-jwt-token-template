@@ -1,27 +1,13 @@
 package com.unewej.questengine.payload;
 
-import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
+@Data
 public class LoginRequest {
-    @NotBlank
+    @NotNull
     private String usernameOrEmail;
-
-    @NotBlank
+    @NotNull
     private String password;
-
-    public String getUsernameOrEmail() {
-        return usernameOrEmail;
-    }
-
-    public void setUsernameOrEmail(String usernameOrEmail) {
-        this.usernameOrEmail = usernameOrEmail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

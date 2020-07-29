@@ -1,7 +1,7 @@
 package com.unewej.questengine.repository;
 
 import com.unewej.questengine.model.Role;
-import com.unewej.questengine.model.RoleName;
+import com.unewej.questengine.model.enumeration.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

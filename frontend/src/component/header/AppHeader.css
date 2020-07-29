@@ -1,12 +1,12 @@
 .app-header {
     background-color: white;
-    height: 75px;
+    height: 4.5rem;
 }
 
 .app-header .h-item  span,
 .app-header a {
-    font-size: 20px;
+    font-size: 1.3rem;
     text-decoration: none;
     cursor: pointer;
-    line-height: 75px;
+    line-height: 4.5rem;
 }

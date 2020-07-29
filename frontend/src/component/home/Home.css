@@ -1,11 +1,7 @@
-.app-home {
-
-}
-
 .circle-item, .circle-item-header {
     margin: 0 0 1px 0;
     background-color: white;
-    padding: 10px 10px;
+    padding: .5rem .5rem;
     position: relative;
     transition: all .1s;
 }
@@ -19,9 +15,9 @@
     height: 100%;
     z-index: -1;
     background-color: white;
-    -webkit-transition: all .1s;
-    -moz-transition: all .1s;
-    transition: all .1s;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
 }
 
 .circle-item:hover:before {
@@ -29,22 +25,13 @@
     left: -0.5%;
     width: 101%;
     height: 110%;
-    z-index: -1;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    -webkit-transition: all .1s;
-    -moz-transition: all .1s;
-    transition: all .1s;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.3);
 }
 
 .circle-item:hover {
-    z-index: 2;
+    z-index: 1;
 }
 
 .circle-name {
-    margin-right: 100px;
-}
-
-.map-container {
-    height: 500px;
-    width: 100%;
+    margin-right: 5rem;
 }

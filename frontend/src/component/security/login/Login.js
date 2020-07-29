@@ -1,43 +1,30 @@
 import React, {Component} from 'react';
-import {login} from '../../../service/SecurityService';
 import './Login.css';
-import {Link} from 'react-router-dom';
-import {ACCESS_TOKEN} from '../../../constant/index';
+import {withRouter} from 'react-router-dom';
+import {logout, login, setUser} from "../../../store/action";
+import {connect} from "react-redux";
+import {SecurityService} from "../../../service/security.service";
 
 class Login extends Component {
-    render() {
-        return (
-            <div className="login-container">
-                <LoginForm onLogin={this.props.onLogin} />
-            </div>
-        );
-    }
-}
-
-class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             usernameOrEmail: '',
             password: ''
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
+    onSubmit = (event) => {
         event.preventDefault();
-        login(this.state)
+        SecurityService.login(this.state)
             .then(response => {
-                localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                this.props.onLogin();
-            }).catch(error => {
-            if (error.status === 401) {
-                console.log("401")
-            } else {
-                console.log("Error")
-            }
-        });
-
+                this.props.login(response)
+                this.props.history.push('/')
+                SecurityService.getCurrentUser()
+                    .then(response => {
+                        this.props.setUser(response)
+                    }).catch(error => {this.props.logout()});
+            }).catch(error => {this.props.logout()});
     }
 
     handleUserInput = (e) => {
@@ -49,8 +36,8 @@ class LoginForm extends Component {
     render() {
 
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className="login-container">
+                <form onSubmit={this.onSubmit}>
                     <h1>Авторизация</h1>
                     <div className="un-form-group">
                         <div className="container p-1">
@@ -83,12 +70,30 @@ class LoginForm extends Component {
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         );
     }
 }
 
+const mapStateToProps = (state, props) => {
+    return {
+        user: state.user
+    }
+}
 
-export default Login;
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        logout: () => {
+            dispatch(logout())
+        },
+        login: (value) => {
+            dispatch(login(value))
+        },
+        setUser: (user) => {
+            dispatch(setUser(user))
+        }
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

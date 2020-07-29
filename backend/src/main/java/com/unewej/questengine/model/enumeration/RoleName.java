@@ -1,4 +1,4 @@
-package com.unewej.questengine.model;
+package com.unewej.questengine.model.enumeration;
 
 public enum  RoleName {
     ROLE_USER,

@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
 import './Home.css';
-import {YMaps, Map, Placemark, Clusterer, SearchControl} from 'react-yandex-maps';
-
-const mapState = { center: [55.76, 37.64], zoom: 10 };
 
 class Home extends Component {
 
@@ -14,43 +11,21 @@ class Home extends Component {
     render() {
         return (
             <div className="row">
-                {/*Левая часть*/}
-                <div className="col-lg-3 col-md-5">
-                    <div className="h-padding">
-                        <h1>Left column</h1>
-                        <div className="map-container">
-                            <YMaps>
-                                <Map width={'100%'} height={'100%'} state={mapState}>
-                                    <Clusterer
-                                        options={{
-                                            preset: "islands#invertedVioletClusterIcons",
-                                            groupByCoordinates: false,
-                                            clusterDisableClickZoom: true,
-                                            clusterHideIconOnBalloonOpen: false,
-                                            geoObjectHideIconOnBalloonOpen: false
-                                        }}>
-                                    </Clusterer>
-                                    <SearchControl options={{float: 'right'}}/>
-                                </Map>
-                            </YMaps>
-                        </div>
-                    </div>
-                </div>
-                {/*Правая часть*/}
-                <div className="col-lg-9 col-md-7">
-                    <div className="h-padding pl-0">
+                <div className="col-sm-8 offset-sm-2 ml-3">
+                    <div className="pt-3">
                         <h1>Right column</h1>
                         <div className={"circle-item-header pt-3 pb-3"}>
-                            <div className={"ml-4"}>
-                                <h2>Circle item header</h2>
+                            <div className={"ml-4 c-default"}>
+                                <h2>Это может быть интересно :</h2>
                             </div>
                         </div>
                         {listItem.map((item, index) => (
-                            <div key={index} className={"circle-item d-flex"}>
-                                <div className={"ml-4 circle-name"}>
+                            <div key={index} className={"circle-item d-flex"}
+                                 onClick={() => this.props.history.push("/page/" + item.id)}>
+                                <div className={"ml-4 circle-name c-default"}>
                                     <p>{item.name}</p>
                                 </div>
-                                <div className="circle-description">
+                                <div className="circle-description c-default">
                                     <p className={"text-grey"}>{item.shortDescription}</p>
                                 </div>
                             </div>

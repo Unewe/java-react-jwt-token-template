@@ -1,98 +1,35 @@
-import React, { Component } from 'react';
-import './App.css';
-import {
-  Route,
-  withRouter,
-  Switch
-} from 'react-router-dom';
-import { getCurrentUser } from './service/SecurityService';
-import { ACCESS_TOKEN } from './constant';
-import AppHeader from './component/header/AppHeader'
-import Login from "./component/security/login/Login";
-import Signup from "./component/security/signup/Signup";
-import  'bootstrap-4-grid';
-import Home from "./component/home/Home";
-import PrivateRoute from "./service/PrivateRoute";
+import React from 'react'
+import './App.css'
+import Login from "./component/security/login/Login"
+import Signup from "./component/security/signup/Signup"
+import 'bootstrap-4-grid'
+import Home from "./component/home/Home"
+import Page from "./component/page/Page"
+import {withRouter, Route, Switch} from "react-router-dom"
+import {connect} from "react-redux"
+import AppHeader from "./component/header/AppHeader"
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: null,
-      isAuthenticated: false,
-      isLoading: false
-    }
-    this.handleLogout = this.handleLogout.bind(this);
-    this.loadCurrentUser = this.loadCurrentUser.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-  }
-
-  loadCurrentUser() {
-    //Когда будет добавлена загрузка
-    // this.setState({
-    //   isLoading: true
-    // });
-    getCurrentUser()
-        .then(response => {
-          this.setState({
-            currentUser: response,
-            isAuthenticated: true,
-            isLoading: false
-          });
-        }).catch(error => {
-      this.setState({
-        isLoading: false
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.loadCurrentUser();
-  }
-
-  handleLogout(redirectTo="/", notificationType="success", description="You're successfully logged out.") {
-    localStorage.removeItem(ACCESS_TOKEN);
-
-    this.setState({
-      currentUser: null,
-      isAuthenticated: false
-    });
-
-    this.props.history.push(redirectTo);
-  }
-
-  handleLogin() {
-    this.loadCurrentUser();
-    this.props.history.push("/");
-  }
-
-  render() {
-    let content;
-    if(this.state.isLoading) {
-      content = <div><h1>Loading</h1></div>
-    } else {
-      content =
-          <div className="container-fluid">
+const App = () => {
+    let content = (
+        <div className="container-fluid">
             <Switch>
-              <Route exact path="/" render={(props) => <Home />} />
-              <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />} />
-              <Route path="/signup" component={Signup} />
-              {/*<PrivateRoute authenticated={this.state.isAuthenticated}  path="/new-game" component={NewGame}/>*/}
+                <Route exact path="/" component={Home}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/signup" component={Signup}/>
+                <Route path="/page/:name" component={Page}/>
+                {/*<PrivateRoute authenticated={this.state.isAuthenticated}  path="/new-game" component={NewGame}/>*/}
             </Switch>
-          </div>
-    }
+        </div>
+    )
+
     return (
         <div className="app-container">
-          <AppHeader isAuthenticated={this.state.isAuthenticated}
-                     currentUser={this.state.currentUser}
-                     onLogout={this.handleLogout} />
-
-          <div className="app-content">
-            {content}
-          </div>
+            <AppHeader/>
+            <div className="app-content">
+                {content}
+            </div>
         </div>
     );
-  }
 }
 
-export default withRouter(App);
+export default withRouter(connect()(App))

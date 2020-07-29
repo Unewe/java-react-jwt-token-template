@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import { signup, checkUsernameAvailability, checkEmailAvailability } from '../../../service/SecurityService';
-import './Signup.css';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import './Signup.css'
 import {
     NAME_MIN_LENGTH, NAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
-} from '../../../constant/index';
-import {validateLength, validateEmail} from '../../../service/ValidationService'
+} from '../../../constant/index'
+import {validateLength, validateEmail} from '../../../service/validation.service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons"
+import {SecurityService} from "../../../service/security.service"
 
 class Signup extends Component {
     constructor(props) {
@@ -29,41 +28,43 @@ class Signup extends Component {
                 value: ''
             }
         }
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this);
-        this.validateEmailAvailability = this.validateEmailAvailability.bind(this);
-        this.isFormInvalid = this.isFormInvalid.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this)
+        this.validateEmailAvailability = this.validateEmailAvailability.bind(this)
+        this.isFormInvalid = this.isFormInvalid.bind(this)
     }
 
     handleInputChange(event, func) {
-        const target = event.target;
-        const inputName = target.name;
-        const inputValue = target.value;
+        const target = event.target
+        const inputName = target.name
+        const inputValue = target.value
 
         this.setState({
             [inputName] : {
                 value: inputValue,
                 ...func(inputValue)
             }
-        });
+        })
     }
 
     handleSubmit(event) {
         event.preventDefault();
+
+        let user;
 
         const signupRequest = {
             name: this.state.name.value,
             email: this.state.email.value,
             username: this.state.username.value,
             password: this.state.password.value
-        };
+        }
 
-        signup(signupRequest)
+        SecurityService.signup(signupRequest)
             .then(response => {
                 this.props.history.push("/login");
             }).catch(error => {
-        });
+        })
     }
 
     isFormInvalid() {
@@ -71,16 +72,16 @@ class Signup extends Component {
             this.state.username.status === 'success' &&
             this.state.email.status === 'success' &&
             this.state.password.status === 'success'
-        );
+        )
     }
 
     handleUserInput = (e, f) => {
         let validation = f(e.target.value);
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({[name]: {...this.state[name], value, ...validation}});
+        this.setState({[name]: {...this.state[name], value, ...validation}})
         console.log(this.state)
-    };
+    }
 
     render() {
 
@@ -161,7 +162,7 @@ class Signup extends Component {
                     </div>
                 </form>
             </div>
-        );
+        )
     }
 
     // Validation Functions
@@ -173,7 +174,7 @@ class Signup extends Component {
                 ...this.state[e.target.name],
                 conclusion
             }
-        });
+        })
     }
 
     validateUsernameAvailability() {
@@ -187,20 +188,20 @@ class Signup extends Component {
                     value: usernameValue,
                     ...usernameValidation
                 }
-            });
-            return;
+            })
+            return
         }
 
-        checkUsernameAvailability(usernameValue)
+        SecurityService.checkUsernameAvailability(usernameValue)
             .then(response => {
-                if(response.available) {
+                if(response.ok) {
                     this.setState({
                         username: {
                             value: usernameValue,
                             validateStatus: 'success',
                             errorMsg: null
                         }
-                    });
+                    })
                 } else {
                     this.setState({
                         username: {
@@ -208,7 +209,7 @@ class Signup extends Component {
                             validateStatus: 'error',
                             errorMsg: 'This username is already taken'
                         }
-                    });
+                    })
                 }
             }).catch(error => {
             // Marking validateStatus as success, Form will be rechecked at server
@@ -218,8 +219,8 @@ class Signup extends Component {
                     validateStatus: 'success',
                     errorMsg: null
                 }
-            });
-        });
+            })
+        })
     }
 
     validateEmailAvailability() {
@@ -233,7 +234,7 @@ class Signup extends Component {
                     value: emailValue,
                     ...emailValidation
                 }
-            });
+            })
             return;
         }
 
@@ -243,18 +244,18 @@ class Signup extends Component {
                 validateStatus: 'validating',
                 errorMsg: null
             }
-        });
+        })
 
-        checkEmailAvailability(emailValue)
+        SecurityService.checkEmailAvailability(emailValue)
             .then(response => {
-                if(response.available) {
+                if(response.ok) {
                     this.setState({
                         email: {
                             value: emailValue,
                             validateStatus: 'success',
                             errorMsg: null
                         }
-                    });
+                    })
                 } else {
                     this.setState({
                         email: {
@@ -262,7 +263,7 @@ class Signup extends Component {
                             validateStatus: 'error',
                             errorMsg: 'This Email is already registered'
                         }
-                    });
+                    })
                 }
             }).catch(error => {
             // Marking validateStatus as success, Form will be recchecked at server
@@ -272,8 +273,8 @@ class Signup extends Component {
                     validateStatus: 'success',
                     errorMsg: null
                 }
-            });
-        });
+            })
+        })
     }
 }
 
