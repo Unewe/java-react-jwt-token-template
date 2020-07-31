@@ -1,18 +1,19 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import './Home.css';
+import './Home.scss'
 
 class Home extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
+        this.state = {}
     }
 
     render() {
         return (
             <div className="row">
-                <div className="col-sm-8 offset-sm-2 ml-3">
-                    <div className="pt-3">
+                <div className="col-md-8 offset-md-2">
+                    <div>
                         <h1>Right column</h1>
                         <div className={"circle-item-header pt-3 pb-3"}>
                             <div className={"ml-4 c-default"}>
@@ -45,4 +46,4 @@ let listItem = [
     {id: 2, name: 'item 2', shortDescription: 'short description 2'},
     {id: 3, name: 'item 3', shortDescription: 'short description 3'},
     {id: 4, name: 'item 4', shortDescription: 'short description 4'},
-    {id: 5, name: 'item 5', shortDescription: 'short description 5'}];
+    {id: 5, name: 'item 5', shortDescription: 'short description 5'}]

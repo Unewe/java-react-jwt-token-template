@@ -1,0 +1,15 @@
+@import "src/theme";
+
+.app-header {
+  background-color: white;
+  height: $header-h;
+  border-bottom: 1px $d-background solid;
+
+  .h-item span,
+  a {
+    font-size: 1.3rem;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 4.5rem;
+  }
+}

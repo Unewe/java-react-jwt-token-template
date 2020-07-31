@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link, withRouter} from 'react-router-dom'
-import './AppHeader.css'
+import './AppHeader.scss'
 import PropTypes from 'prop-types'
 import {logout} from "../../store/action"
 import {connect} from "react-redux"
@@ -15,7 +15,7 @@ const AppHeader = ({user, logout}) => {
                 <Link to="/">Home</Link>
             </div>,
             <div key="1" className="mr-5">
-                <Link to="/game/list">List</Link>
+                <Link to="/create-article">Создать пост</Link>
             </div>
         ];
     } else {
@@ -32,7 +32,7 @@ const AppHeader = ({user, logout}) => {
     return (
         <div className="app-header">
             <div className="container-fluid">
-                <div className="row">
+                <div className="row d-none d-md-flex">
                     <div className="col-3 text-center">
                         <Link to="/">Circle</Link>
                     </div>

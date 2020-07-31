@@ -1,7 +1,7 @@
 import {LOGIN, LOGOUT, SET_USER} from "../action"
 import {ACCESS_TOKEN} from "../../constant";
 
-const user = (state = {}, action) => {
+const user = (state = {name: " "}, action) => {
     switch (action.type) {
         case LOGIN:
             console.log(action, "TOKEN")

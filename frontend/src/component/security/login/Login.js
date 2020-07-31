@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Login.css';
+import './Login.scss';
 import {withRouter} from 'react-router-dom';
 import {logout, login, setUser} from "../../../store/action";
 import {connect} from "react-redux";
@@ -34,6 +34,8 @@ class Login extends Component {
     };
 
     render() {
+
+        console.log(this.props.history.location.state?.from)
 
         return (
             <div className="login-container">

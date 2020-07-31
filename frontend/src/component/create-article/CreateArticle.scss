@@ -1,0 +1,19 @@
+@import "src/theme";
+
+.article-wrapper {
+  position: relative;
+
+  .article-header {
+
+  }
+
+  .article-body {
+    background-color: $d-main;
+    .description {
+      width: 100%;
+      border-left: 10px solid $d-highlighted-green-border;
+      border-radius: 5px;
+      background-color: $d-highlighted-green;
+    }
+  }
+}

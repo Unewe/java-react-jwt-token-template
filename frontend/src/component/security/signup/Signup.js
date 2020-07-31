@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Signup.css'
+import './Signup.scss'
 import {
     NAME_MIN_LENGTH, NAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
@@ -50,8 +50,6 @@ class Signup extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        let user;
 
         const signupRequest = {
             name: this.state.name.value,
