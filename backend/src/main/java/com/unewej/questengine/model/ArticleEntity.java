@@ -1,6 +1,6 @@
 package com.unewej.questengine.model;
 
-import com.unewej.questengine.payload.ArticlePayload;
+import com.unewej.questengine.payload.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-public class Article {
+@Entity(name = "article")
+public class ArticleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,17 +25,17 @@ public class Article {
     private Boolean blocked;
     private Boolean accepted;
     @OneToMany(mappedBy = "article")
-    private List<TextRow> textRows;
+    private List<ContainerEntity> containers;
 
-    public static Article fromPayload(ArticlePayload payload) {
-        Article article = Article.builder()
+    public static ArticleEntity fromPayload(Article payload) {
+        ArticleEntity article = ArticleEntity.builder()
                 .id(payload.getId())
                 .name(payload.getName())
                 .description(payload.getDescription())
                 .imageUrl(payload.getImageUrl())
-                .textRows(payload.getTextRows().stream().map(TextRow::fromPayload).collect(Collectors.toList()))
+                .containers(payload.getContainers().stream().map(ContainerEntity::fromPayload).collect(Collectors.toList()))
                 .build();
-        article.getTextRows().forEach(textRow -> textRow.setArticle(article));
+        article.getContainers().forEach(container -> container.setArticle(article));
         return article;
     }
 }

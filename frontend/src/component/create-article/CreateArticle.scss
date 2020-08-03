@@ -3,17 +3,46 @@
 .article-wrapper {
   position: relative;
 
-  .article-header {
-
+  .side-bar {
+    .menu-item {
+      background-color: $d-main;
+    }
   }
 
   .article-body {
+    h1, h2, h3, h4, h5 {
+      margin: 2rem 0 0 0;
+    }
+
+    p{
+      margin: 1.6rem 0 0 0;
+    }
+
     background-color: $d-main;
-    .description {
+
+    .description, .extra, .attention {
       width: 100%;
-      border-left: 10px solid $d-highlighted-green-border;
+      box-sizing: border-box;
       border-radius: 5px;
+    }
+
+    .description {
+      border-left: 10px solid $d-highlighted-green-border;
       background-color: $d-highlighted-green;
+    }
+
+    .extra, .attention {
+      padding: 1rem;
+    }
+
+    .extra {
+      border-left: 10px solid $d-highlighted-blue-border;
+      background-color: $d-highlighted-blue;
+    }
+
+    .attention {
+      border-left: 10px solid $d-highlighted-red-border;
+      background-color: $d-highlighted-red;
     }
   }
 }

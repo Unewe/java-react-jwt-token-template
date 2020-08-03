@@ -32,14 +32,14 @@ const AppHeader = ({user, logout}) => {
     return (
         <div className="app-header">
             <div className="container-fluid">
-                <div className="row d-none d-md-flex">
-                    <div className="col-3 text-center">
+                <div className="row">
+                    <div className="col-6 col-md-3 pl-5">
                         <Link to="/">Circle</Link>
                     </div>
-                    <div className="col-7 d-flex">
+                    <div className="d-none d-md-flex col-7 justify-content-end">
                         {menuItems}
                     </div>
-                    <div className="col-2 text-center h-item">
+                    <div className="col-6 col-md-2 pr-5 d-flex justify-content-end h-item">
                         <span onClick={logout}>{user.name ? user.name : ""}</span>
                     </div>
                 </div>

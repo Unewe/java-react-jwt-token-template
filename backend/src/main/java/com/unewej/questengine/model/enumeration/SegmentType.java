@@ -6,5 +6,5 @@ public enum SegmentType {
     ITALIC,
     BOLD_ITALIC,
     CROSSED,
-    UNDERLINED
+    UNDERLINED,
 }

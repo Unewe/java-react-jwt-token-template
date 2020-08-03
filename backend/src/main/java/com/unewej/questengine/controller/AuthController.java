@@ -1,8 +1,8 @@
 package com.unewej.questengine.controller;
 
-import com.unewej.questengine.model.Role;
+import com.unewej.questengine.model.RoleEntity;
 import com.unewej.questengine.model.enumeration.RoleName;
-import com.unewej.questengine.model.User;
+import com.unewej.questengine.model.UserEntity;
 import com.unewej.questengine.payload.JwtAuthenticationResponse;
 import com.unewej.questengine.payload.LoginRequest;
 import com.unewej.questengine.payload.SignUpRequest;
@@ -86,9 +86,9 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Email занят!");
         }
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        RoleEntity userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new NullPointerException("Этого не должно было произойти."));
-        User user = User.builder()
+        UserEntity user = UserEntity.builder()
                 .name(signUpRequest.getName())
                 .username(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())

@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ArticlePayload {
+public class Article {
     private Long id;
     private String name;
     private String description;
     private String imageUrl;
-    private List<TextRowPayload> textRows;
+    private List<Container> containers;
 }

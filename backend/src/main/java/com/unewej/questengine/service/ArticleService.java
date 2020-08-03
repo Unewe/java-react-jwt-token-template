@@ -1,6 +1,6 @@
 package com.unewej.questengine.service;
 
-import com.unewej.questengine.model.Article;
+import com.unewej.questengine.model.ArticleEntity;
 import com.unewej.questengine.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,11 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Article getById(Long id) {
+    public ArticleEntity getById(Long id) {
         return articleRepository.getOne(id);
     }
 
-    public void save(Article article) {
+    public void save(ArticleEntity article) {
         articleRepository.save(article);
     }
 }

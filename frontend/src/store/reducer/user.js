@@ -4,7 +4,6 @@ import {ACCESS_TOKEN} from "../../constant";
 const user = (state = {name: " "}, action) => {
     switch (action.type) {
         case LOGIN:
-            console.log(action, "TOKEN")
             localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
             return state
         case SET_USER:

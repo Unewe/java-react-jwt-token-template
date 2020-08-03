@@ -38,6 +38,7 @@
             </column>
         </createTable>
     </changeSet>
+
     <changeSet id="2" author="unewej">
         <preConditions onFail="MARK_RAN">
             <tableExists schemaName="public" tableName="roles"/>
@@ -49,6 +50,7 @@
             <column name="name">ROLE_ADMIN</column>
         </insert>
     </changeSet>
+
     <changeSet id="3" author="unewej">
         <preConditions onFail="MARK_RAN">
             <tableExists schemaName="public" tableName="users"/>
@@ -63,57 +65,8 @@
             </column>
         </createTable>
     </changeSet>
+
     <changeSet id="4" author="unewej">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists schemaName="public" tableName="text_row"/>
-            </not>
-        </preConditions>
-        <createTable schemaName="public" tableName="text_row">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false"/>
-            </column>
-            <column name="index" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="type" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="borderColor" type="varchar(50)"/>
-            <column name="padding" type="varchar(50)"/>
-            <column name="full_width" type="boolean"/>
-            <column name="article_id" type="bigint"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="5" author="unewej">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists schemaName="public" tableName="text_row_segment"/>
-            </not>
-        </preConditions>
-        <createTable schemaName="public" tableName="text_row_segment">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false"/>
-            </column>
-            <column name="index" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="text_row_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="segment_text" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="type" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="font_size" type="varchar(50)"/>
-            <column name="color" type="varchar(50)"/>
-            <column name="background_color" type="varchar(50)"/>
-            <column name="href" type="varchar"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="6" author="unewej">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists schemaName="public" tableName="article"/>
@@ -127,9 +80,81 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="text"/>
+            <column name="image_url" type="text"/>
             <column name="blocked" type="boolean" defaultValueBoolean="false"/>
             <column name="accepted" type="boolean" defaultValueBoolean="false"/>
-            <column name="image_url" type="text"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="5" author="unewej">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="container"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="public" tableName="container">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="index" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="container_type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="unewej">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="row"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="public" tableName="row">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="index" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="row_type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="text"/>
+            <column name="image_width" type="varchar(50)"/>
+            <column name="container_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="unewej">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="segment"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="public" tableName="segment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="index" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="row_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="segment_text" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="segment_type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="font_size" type="varchar(50)"/>
+            <column name="color" type="varchar(50)"/>
+            <column name="background_color" type="varchar(50)"/>
+            <column name="href" type="varchar"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,8 +1,8 @@
 package com.unewej.questengine.model.enumeration;
 
-public enum TextRowType {
+public enum ContainerType {
     DEFAULT,
     CODE,
-    CENTER,
-    RIGHT
+    EXTRA,
+    ATTENTION
 }

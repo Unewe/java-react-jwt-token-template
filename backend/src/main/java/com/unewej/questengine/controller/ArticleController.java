@@ -1,7 +1,7 @@
 package com.unewej.questengine.controller;
 
-import com.unewej.questengine.model.Article;
-import com.unewej.questengine.payload.ArticlePayload;
+import com.unewej.questengine.model.ArticleEntity;
+import com.unewej.questengine.payload.Article;
 import com.unewej.questengine.service.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +17,13 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<Article> getArticleById(Long id) {
+    public ResponseEntity<ArticleEntity> getArticleById(Long id) {
         return ResponseEntity.ok(articleService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> saveArticle(@RequestBody ArticlePayload payload) {
-        articleService.save(Article.fromPayload(payload));
+    public ResponseEntity<?> saveArticle(@RequestBody Article payload) {
+        articleService.save(ArticleEntity.fromPayload(payload));
         return ResponseEntity.ok().build();
     }
 }
